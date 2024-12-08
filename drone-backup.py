@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Paths and configurations
 SD_CARD_PATH = "/media/ubuntu/DroneMedia"
-DESTINATION_PATH = os.path.expanduser("~/drone/")
+DESTINATION_PATH = os.path.expanduser("~/drone-media/")
 TELEMETRY_FOLDER = os.path.join(DESTINATION_PATH, "telemetry")
 
 # Ensure necessary folders exist
