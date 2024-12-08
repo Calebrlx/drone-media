@@ -3,7 +3,7 @@ import shutil
 from datetime import datetime
 
 # Paths and configurations
-SD_CARD_PATH = "/media/ubuntu/DroneMedia"
+SD_CARD_PATH = "/mnt/DroneMedia/DCIM/DJI_001"
 DESTINATION_PATH = os.path.expanduser("~/drone-media/")
 TELEMETRY_FOLDER = os.path.join(DESTINATION_PATH, "telemetry")
 
