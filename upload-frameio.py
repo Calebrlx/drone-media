@@ -42,21 +42,28 @@ def get_upload_url(filename):
         "type": "file"
     }
     response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()  # Raise an error for bad responses
+    if response.status_code != 201:  # 201 Created
+        console.print(f"[red]Failed to create asset: {response.status_code} {response.text}[/red]")
+        raise Exception(f"Failed to create asset: {response.text}")
     return response.json()["upload_url"]
 
 def upload_video(upload_url, file_path):
     """Upload the video to Frame.io using the provided URL."""
     file_size = os.path.getsize(file_path)
-    headers = {"Content-Length": str(file_size)}
+    headers = {
+        "Content-Length": str(file_size),
+        "Content-Type": "application/octet-stream"
+    }
 
     with open(file_path, "rb") as file, tqdm(
         total=file_size, unit="B", unit_scale=True, desc=f"Uploading {os.path.basename(file_path)}"
     ) as progress_bar:
-        for chunk in file:
+        for chunk in iter(lambda: file.read(1024 * 1024), b""):
             progress_bar.update(len(chunk))
             response = requests.put(upload_url, headers=headers, data=chunk)
-            response.raise_for_status()  # Raise an error for bad responses
+            if not response.ok:
+                console.print(f"[red]Upload failed: {response.status_code} {response.text}[/red]")
+                response.raise_for_status()
 
 def main():
     console.clear()
