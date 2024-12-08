@@ -61,7 +61,7 @@ def clear_sd_card():
 def main():
     print("Starting file transfer...")
     copy_files()
-    print("File transfer complete. Verifying before clearing SD card...")
+    # print("File transfer complete. Verifying before clearing SD card...")
 
     ## Verify SD card is safe to clear (implement checksum comparisons)
     # confirmation = input("Do you want to clear the SD card? (yes/no): ").strip().lower()
