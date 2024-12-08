@@ -9,11 +9,12 @@ from dotenv import load_dotenv
 # Load secrets from .env file
 load_dotenv()
 FRAMEIO_API_TOKEN = os.getenv("FRAMEIO_API_TOKEN")
-FRAMEIO_PROJECT_ID = os.getenv("FRAMEIO_PROJECT_ID")
+FRAMEIO_PROJECT_ID = "44ec8d36-1e54-4f3c-a3dd-ba48a6f3539d"  # From the URL
+FRAMEIO_FOLDER_ID = "1274fa0b-2bc7-48ad-94ba-eeb55833cc78"    # From the URL
 
 # Verify secrets
-if not FRAMEIO_API_TOKEN or not FRAMEIO_PROJECT_ID:
-    raise ValueError("Missing FRAMEIO_API_TOKEN or FRAMEIO_PROJECT_ID in .env file.")
+if not FRAMEIO_API_TOKEN:
+    raise ValueError("Missing FRAMEIO_API_TOKEN in .env file.")
 
 # Console for TUI
 console = Console()
@@ -35,7 +36,7 @@ def list_videos(folder):
 
 def get_upload_url(filename):
     """Get a Frame.io upload URL for the video."""
-    url = f"https://api.frame.io/v2/projects/{FRAMEIO_PROJECT_ID}/assets"
+    url = f"https://api.frame.io/v2/assets/{FRAMEIO_FOLDER_ID}/children"
     payload = {
         "name": filename,
         "type": "file"
